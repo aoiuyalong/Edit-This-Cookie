@@ -1,0 +1,57 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will install Deno then run Deno lint and test.
+# For more information see: https://github.com/denoland/setup-deno
+
+name: Deno
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        # uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@004814556e37c54a2f6e31384c9e18e9833173669
+        with:
+          deno-version: v1.x
+
+      # Uncomment this step to verify the use of 'deno fmt' on each commit.
+      # - name: Verify formatting
+      #   run: deno fmt --check
+
+      - name: Run linter
+        run: deno lint
+
+      - name: Run tests
+        run: deno test -A --unstable
+        
+        
+
+  ├─install                 /* 安装包 */
+  ├─java                    /* 后端服务 */
+  │   ├─img                 /* 后端下载文件存储目录 */
+  │   ├─log                 /* 后端服务日志输出 */
+  │   └─release.jar         /* 后端服务构建包 */
+  ├─mysql                   /* mysql配置 */
+  │   ├─data                /* mysql数据库文件 */
+  │   ├─log                 /* mysql日志文件 */
+  │   └─mysql.cnf           /* mysql配置文件 */
+  ├─nginx                   /* 前端服务 */
+  │   └─html                /* 前端网站构建包 */
+  ├─redis                   /* redis配置 */
+  │   ├─data                /* redis数据库文件 */
+  │   └─redis.conf          /* redis配置文件 */
+  └─docker-compose.yml      /* docker编排配置文件 */
